@@ -1,5 +1,5 @@
 ---
-title: "Liver Diease Predictor"
+title: "Liver Disease Predictor"
 author: "Kumar"
 date: "08/04/2020"
 output:
@@ -54,9 +54,11 @@ The goal of the model is to split the data set into test and training sets, trai
 
 3. Method
 
+3.1. Exploratory Analysis
+
 Before fitting the regression model, it is helpful to study some of the features of the data set, such as the prevalence of male gender vs female, patients' age groups and live emzymes' concentrations and their correlation with the presence of liver disease.
 
-3.1.Gender
+3.1.1. Gender
 
 The below code summarizes gender ratio among the patients in the data set.Colum "ratio" below represents the ratio of each gender in the data set.
 ```{r}
@@ -68,7 +70,7 @@ indian_liver_patient%>%group_by(Gender)%>%summarize(occurrence = mean(Dataset==1
 ```
 So, it is seen that female patients are only slightly less likely than a male patient to have liver disease.
 
-3.2.Age
+3.1.2. Age
 
 Age is another important variable which could possibly have an impact on the occurrence of disease in a patient.
 
@@ -87,7 +89,7 @@ indian_liver_patient%>%group_by(Gender,Age)%>%summarize(occurrence=mean(Dataset=
 ```
 Female gender seems to have a negative correlation of age w.r.t occurrence of liver disease whereas men have a positive correlation between age and liver disease.
 
-3.3.Liver Enzymes
+3.1.3.Liver Enzymes & Proteins
 
 There are seven liver enzyme concentration variables and one enzymes' ratio variable.
 
@@ -133,7 +135,7 @@ indian_liver_patient%>%summarize(r=cor(Total_Bilirubin,Alkaline_Phosphotase))
 ```{r}
 indian_liver_patient%>%summarize(r=cor(Total_Bilirubin,Albumin))
 ```
-4. Data Partition
+3.2. Data Partition
 
 From the above analyses, it can be safely assumed that the variables presented in the data set do show correlation with the diagnosis of liver disease in patients. So, it should be possible to train and test a machine learning model on the data set and then use the fitted model to predict diagnosis of liver disease among patients in real world situations.
 
@@ -145,7 +147,7 @@ train<-indian_liver_patient%>%slice(-index)
 test<-indian_liver_patient%>%slice(index)
 ```
 
-5. Models
+3.3. Models
 
 Several models have been covered as a part of this program. Key among them are summarized below:
 
@@ -173,7 +175,7 @@ Random Forest
 
 Random Forest approach utilizes the concept of decision tree by averaging several decision trees.It uses bootstrap aggregation or bagging technique wherein it generates many predictors at each step and then averages prediction of several trees.Bootstrap feature ensures that the different trees are selected.
 
-5.1.Fitting the Model
+3.3.1.Fitting the Model
 
 Caret package's train function is used to test all of the models decribed above and to shortlist the best technique(s). Further finetuning of the accuracy is done by tuning the model parameters.
 
@@ -214,7 +216,7 @@ print(tibble(models,accuracy))
 
 So, lda, glm, rf, knn and gamLoess models yield accuracies above 70%. Out of these, kNN and rf provide the option of tuning or further improving accuracy.
 
-5.2.Tuning of kNN model
+3.3.2.Tuning of kNN model
 
 The parameter k in the kNN model represents the number of neighbors to be used for predicting the outcomes. By default, the model uses the tuneGrid parameter k=5,7,9, for fitting the model with the highest accuracy. The search for the value of k which maximizes accuracy can be expanded to a much larger set such as k=seq(1,50,by=2).
 
@@ -241,7 +243,7 @@ accuracy_knn
 
 Using the tuning parameter, the accuracy of kNN model's predictions has been improved to 73.86%, which is the same as that of LDA.
 
-5.3.Tuning of Random Forest model
+3.3.3. Tuning of Random Forest model
 
 The random forest model provided an accuracy of 70.45% on the test set. The possibility of improving result further via tuning is looked into. The "mtry" parameter allows to try different numbers of predictor at each split in a tree. The default, in this case, is 10/3 = 3. The following values of mtry are tried, to maximize accuracy. 
 
@@ -272,11 +274,11 @@ varImp(fit_rf)
 ```
 The above aligns with the earlier observations that AP, ALT, AST, Age and TB show stronger positive correlation with occurrence of disease, wheras the rest of the predictors, age inlcuded show very feeble correlation with the presence of disease.
 
-6. Results
+4. Results
 
 All machine learning algorithms applied on "indian liver patient" data set, aprt from QDA, provide greater than 70% accuracy with the default model settings in Caret package. LDA and GLM yield higher accuracies than the rest, but still below 75%. Upon tuning the parameters of kNN, the accuracy on test set becomes better than that yielded by GLM (72.73%) and equals the accuracy of LDA (73.86%).However, with tuning, the most drastic improvement in accuracy is achieved in Random Forest algorithm which uses only one predictor variable at each split. In fact, the accuracy of the tuned Random Forest model is more than 75%.
 
-7. Conclusions
+5. Conclusions
 
 The outcomes of nearly all machine learning prediction models reaffirm the observations from the scatter plots which show correlation between occurrence of liver disease in patients and various factors such as age and live emzymes & proteins.One of the major challenges faced while modelling is the relatively small size of data set, which necessitates judicious selection of train and test set sizes. Even though ample data points are needed for training an accurate model, very small test set size could also grossly over or under state overall test accuracy.A key effect of the relatively small training set size is seen in QDA model, which performs significantly worse than LDA in terms of overall accuracy on the test set.On the other hand, the small size of training set helped save some time in fitting the models without reducing the default cross validation settings or the default ntree parameter (in Random Forest model).
 Overall, Random Forest model stands out in terms of the improvement in accuracy which can be brought about by finetuning parameters.
