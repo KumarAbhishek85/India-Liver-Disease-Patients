@@ -19,13 +19,13 @@ The the topic for the project can be chosen by learners as per their own choice.
 1.2.Liver Disease Predictor
 
 Upon a reviw of datasets available on Kaggle.Com, the topic "Indian Liver Patient Records" was chosen.The data is an extract from Lichman's (2013) work at the University of California, Irvine.
-The dataset contains details such as age, sex and liver enzyme & protein levels and teh presence or absence of liver disease in 583 patients in Andhra Pradesh state of India. 
+The dataset contains details such as age, sex and liver enzyme & protein levels and the presence or absence of liver disease in 583 patients in Andhra Pradesh state of India. 
 
 There are two main reasons for choosing this topic. The first reason is that given the fast paced and rather unhealthy modern lifestyle, liver disease is common ailment which afflicts millions across the globe and yet due to the seemingly innocuous symptoms, this condition goes undetected in patients for prologed periods of time, ultimately causing serious physiological damages and even fatalities.Secondly, India, in particular, is an interesting study in the prevalence of liver disease among the population because of the rather renowned and celebrated culture of intake of delicious and yet fat-rich and spicy foods, as part of regular diet.
 
 2. Data Set
 
-The data set, "indian_liver_patient.csv",has been downloaded to the local drive from the site URL: "https://www.kaggle.com/uciml/indian-liver-patient-records".
+The data set, "indian_liver_patient.csv",has been downloaded from the site URL: "https://www.kaggle.com/uciml/indian-liver-patient-records" and saved in a Github repository.
 
 The .csv is imported into R Studio and an initial examination is done as follows:
 ```{r}
