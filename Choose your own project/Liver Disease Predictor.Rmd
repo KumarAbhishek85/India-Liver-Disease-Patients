@@ -29,7 +29,7 @@ The data set, "indian_liver_patient.csv",has been downloaded to the local drive 
 
 The .csv is imported into R Studio and an initial examination is done as follows:
 ```{r}
-indian_liver_patient <- read.csv("~/course_tests/Liver Disease Predictor/indian_liver_patient.csv")
+indian_liver_patient <- read.csv("https://raw.githubusercontent.com/KumarAbhishek85/India-Liver-Disease-Patients/master/Choose%20your%20own%20project/indian_liver_patient.csv")
 head(indian_liver_patient)
 ```
 The data set is available in ready to use tidy format and is only missing 4 data points under the column "Albumin_and_Globulin_Ratio". These have been manually set to the average value of 0.947 of the remaining data in teh column.
