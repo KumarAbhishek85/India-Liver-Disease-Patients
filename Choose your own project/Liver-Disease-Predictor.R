@@ -1,4 +1,4 @@
-indian_liver_patient <- read.csv("~/course_tests/Liver Disease Predictor/indian_liver_patient.csv")
+indian_liver_patient <- read.csv("https://raw.githubusercontent.com/KumarAbhishek85/India-Liver-Disease-Patients/master/Choose%20your%20own%20project/indian_liver_patient.csv")
 head(indian_liver_patient)
 if(!require(tidyverse)) install.packages("tidyverse", repos = "http://cran.us.r-project.org")
 if(!require(caret)) install.packages("caret", repos = "http://cran.us.r-project.org")
